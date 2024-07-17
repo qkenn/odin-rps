@@ -18,8 +18,6 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-console.log(getComputerChoice());
-
 function getPlayerChoice() {
   const inputMove = window.prompt('Play your move', 'rock');
 
@@ -30,4 +28,45 @@ function getPlayerChoice() {
   return playerMove;
 }
 
-console.log(getPlayerChoice());
+let computerScore = 0;
+let playerScore = 0;
+
+function playRound(computerChoice, playerChoice) {
+  let result = '';
+
+  switch (true) {
+    case computerChoice == playerChoice:
+      result = "It's a tie";
+      break;
+    case computerChoice == 'rock' && playerChoice == 'paper':
+      result = `You won: ${playerChoice} beats ${computerChoice}`;
+      playerScore++;
+      break;
+    case computerChoice == 'rock' && playerChoice == 'scissors':
+      result = `Computer won: ${computerChoice} beats ${playerChoice}`;
+      computerScore++;
+      break;
+    case computerChoice == 'paper' && playerChoice == 'rock':
+      result = `Computer won: ${computerChoice} beats ${playerChoice}`;
+      computerScore++;
+      break;
+    case computerChoice == 'paper' && playerChoice == 'scissors':
+      result = `You won: ${playerChoice} beats ${computerChoice}`;
+      playerScore++;
+      break;
+    case computerChoice == 'scissors' && playerChoice == 'rock':
+      result = `You won: ${playerChoice} beats ${computerChoice}`;
+      playerScore++;
+      break;
+    case computerChoice == 'scissors' && playerChoice == 'paper':
+      result = `Computer won: ${computerChoice} beats ${playerChoice}`;
+      computerScore++;
+      break;
+  }
+
+  return result;
+}
+
+console.log(playRound(getComputerChoice(), getPlayerChoice()));
+
+console.log(`Your score: ${playerScore}, Copmuter score: ${computerScore}`);
