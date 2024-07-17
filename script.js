@@ -1,3 +1,5 @@
+const btns = document.querySelector('.btn-container');
+
 function getComputerChoice() {
   const move = Math.floor(Math.random() * 3) + 1;
 
@@ -21,7 +23,10 @@ function getComputerChoice() {
 function getPlayerChoice() {
   const inputMove = window.prompt('Play your move', 'rock');
 
+  if (!inputMove) return '';
+
   const playerMove = inputMove.toLowerCase();
+
   if (playerMove != 'rock' && playerMove != 'paper' && playerMove != 'scissors')
     return 'invalid move: ' + inputMove;
 
@@ -85,4 +90,12 @@ function playGame() {
   );
 }
 
-playGame();
+// playGame();
+
+btns.addEventListener('click', (e) => {
+  if (!e.target.dataset?.id) return;
+
+  const move = e.target.dataset.id;
+
+  console.log(move);
+});
