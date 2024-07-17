@@ -1,4 +1,5 @@
 const btns = document.querySelector('.btn-container');
+const statsContainer = document.getElementById('stats');
 
 function getComputerChoice() {
   const move = Math.floor(Math.random() * 3) + 1;
@@ -75,8 +76,8 @@ function playRound(computerChoice, playerChoice) {
 }
 
 function playGame(computerChoice, playerChoice) {
-  console.log(`Your move: ${playerChoice}`);
-  console.log(`Computer move: ${computerChoice}`);
+  renderMove(playerChoice, 'player');
+  renderMove(computerChoice, 'computer');
   console.log(playRound(computerChoice, playerChoice));
 
   console.log(
@@ -93,3 +94,15 @@ btns.addEventListener('click', (e) => {
 
   playGame(getComputerChoice(), playerChoice);
 });
+
+function renderMove(move, gamePlayer) {
+  const statsMessageEl = document.createElement('div');
+
+  if (gamePlayer == 'player') {
+    statsMessageEl.textContent = `Your move: ${move}`;
+  } else {
+    statsMessageEl.textContent = `Computer move: ${move}`;
+  }
+
+  statsContainer.appendChild(statsMessageEl);
+}
