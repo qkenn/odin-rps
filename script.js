@@ -30,6 +30,7 @@ function getPlayerChoice() {
 
 let computerScore = 0;
 let playerScore = 0;
+let ties = 0;
 
 function playRound(computerChoice, playerChoice) {
   let result = '';
@@ -37,6 +38,7 @@ function playRound(computerChoice, playerChoice) {
   switch (true) {
     case computerChoice == playerChoice:
       result = "It's a tie";
+      ties++;
       break;
     case computerChoice == 'rock' && playerChoice == 'paper':
       result = `You won: ${playerChoice} beats ${computerChoice}`;
@@ -67,6 +69,20 @@ function playRound(computerChoice, playerChoice) {
   return result;
 }
 
-console.log(playRound(getComputerChoice(), getPlayerChoice()));
+function playGame() {
+  for (let i = 1; i <= 5; i++) {
+    const computerChoice = getComputerChoice();
+    const playerChoice = getPlayerChoice();
+    console.log(`Round ${i}`);
+    console.log(`Your move: ${playerChoice}`);
+    console.log(`Computer move: ${computerChoice}`);
+    console.log(playRound(computerChoice, playerChoice));
+  }
 
-console.log(`Your score: ${playerScore}, Copmuter score: ${computerScore}`);
+  console.log('You played five times');
+  console.log(
+    `Scoreboard: you - ${playerScore}, computer - ${computerScore}, ties - ${ties}`
+  );
+}
+
+playGame();
