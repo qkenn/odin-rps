@@ -37,6 +37,7 @@ function getComputerChoice() {
 let computerScore = 0;
 let playerScore = 0;
 let ties = 0;
+let playCount = 0;
 
 function playRound(computerChoice, playerChoice) {
   let result = '';
@@ -72,13 +73,14 @@ function playRound(computerChoice, playerChoice) {
       break;
   }
 
-  return result;
+  renderGameResult(result);
 }
 
 function playGame(computerChoice, playerChoice) {
   renderMove(playerChoice, 'player');
   renderMove(computerChoice, 'computer');
-  console.log(playRound(computerChoice, playerChoice));
+
+  playRound(computerChoice, playerChoice);
 
   console.log(
     `Scoreboard: you - ${playerScore}, computer - ${computerScore}, ties - ${ties}`
@@ -93,6 +95,10 @@ btns.addEventListener('click', (e) => {
   const playerChoice = e.target.dataset.id;
 
   playGame(getComputerChoice(), playerChoice);
+
+  playCount++;
+
+  if (playCount == 5) renderFinalScore(computerScore, playerScore, ties);
 });
 
 function renderMove(move, gamePlayer) {
@@ -105,4 +111,18 @@ function renderMove(move, gamePlayer) {
   }
 
   statsContainer.appendChild(statsMessageEl);
+}
+
+function renderGameResult(result) {
+  const resultEl = document.createElement('div');
+  resultEl.textContent = result;
+
+  statsContainer.appendChild(resultEl);
+}
+
+function renderFinalScore(computerScore, playerScore, ties) {
+  const finalScoreEl = document.createElement('div');
+  finalScoreEl.textContent = `Computer score: ${computerScore}, Player score: ${playerScore}, Ties: ${ties}`;
+
+  statsContainer.appendChild(finalScoreEl);
 }
