@@ -19,3 +19,15 @@ function getComputerChoice() {
 }
 
 console.log(getComputerChoice());
+
+function getPlayerChoice() {
+  const inputMove = window.prompt('Play your move', 'rock');
+
+  const playerMove = inputMove.toLowerCase();
+  if (playerMove != 'rock' && playerMove != 'paper' && playerMove != 'scissors')
+    return 'invalid move: ' + inputMove;
+
+  return playerMove;
+}
+
+console.log(getPlayerChoice());
