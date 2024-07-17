@@ -20,18 +20,18 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-function getPlayerChoice() {
-  const inputMove = window.prompt('Play your move', 'rock');
+// function getPlayerChoice() {
+//   const inputMove = window.prompt('Play your move', 'rock');
 
-  if (!inputMove) return '';
+//   if (!inputMove) return '';
 
-  const playerMove = inputMove.toLowerCase();
+//   const playerMove = inputMove.toLowerCase();
 
-  if (playerMove != 'rock' && playerMove != 'paper' && playerMove != 'scissors')
-    return 'invalid move: ' + inputMove;
+//   if (playerMove != 'rock' && playerMove != 'paper' && playerMove != 'scissors')
+//     return 'invalid move: ' + inputMove;
 
-  return playerMove;
-}
+//   return playerMove;
+// }
 
 let computerScore = 0;
 let playerScore = 0;
@@ -74,17 +74,11 @@ function playRound(computerChoice, playerChoice) {
   return result;
 }
 
-function playGame() {
-  for (let i = 1; i <= 5; i++) {
-    const computerChoice = getComputerChoice();
-    const playerChoice = getPlayerChoice();
-    console.log(`Round ${i}`);
-    console.log(`Your move: ${playerChoice}`);
-    console.log(`Computer move: ${computerChoice}`);
-    console.log(playRound(computerChoice, playerChoice));
-  }
+function playGame(computerChoice, playerChoice) {
+  console.log(`Your move: ${playerChoice}`);
+  console.log(`Computer move: ${computerChoice}`);
+  console.log(playRound(computerChoice, playerChoice));
 
-  console.log('You played five times');
   console.log(
     `Scoreboard: you - ${playerScore}, computer - ${computerScore}, ties - ${ties}`
   );
@@ -95,7 +89,7 @@ function playGame() {
 btns.addEventListener('click', (e) => {
   if (!e.target.dataset?.id) return;
 
-  const move = e.target.dataset.id;
+  const playerChoice = e.target.dataset.id;
 
-  console.log(move);
+  playGame(getComputerChoice(), playerChoice);
 });
