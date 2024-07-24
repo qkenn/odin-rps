@@ -81,10 +81,6 @@ function playGame(computerChoice, playerChoice) {
   renderMove(computerChoice, 'computer');
 
   playRound(computerChoice, playerChoice);
-
-  console.log(
-    `Scoreboard: you - ${playerScore}, computer - ${computerScore}, ties - ${ties}`
-  );
 }
 
 // playGame();
