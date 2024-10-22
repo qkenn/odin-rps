@@ -1,3 +1,6 @@
+const btns = document.querySelector('.btn-container');
+const statsContainer = document.getElementById('stats');
+
 function getComputerChoice() {
   const move = Math.floor(Math.random() * 3) + 1;
 
@@ -18,19 +21,23 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-function getPlayerChoice() {
-  const inputMove = window.prompt('Play your move', 'rock');
+// function getPlayerChoice() {
+//   const inputMove = window.prompt('Play your move', 'rock');
 
-  const playerMove = inputMove.toLowerCase();
-  if (playerMove != 'rock' && playerMove != 'paper' && playerMove != 'scissors')
-    return 'invalid move: ' + inputMove;
+//   if (!inputMove) return '';
 
-  return playerMove;
-}
+//   const playerMove = inputMove.toLowerCase();
+
+//   if (playerMove != 'rock' && playerMove != 'paper' && playerMove != 'scissors')
+//     return 'invalid move: ' + inputMove;
+
+//   return playerMove;
+// }
 
 let computerScore = 0;
 let playerScore = 0;
 let ties = 0;
+let playCount = 0;
 
 function playRound(computerChoice, playerChoice) {
   let result = '';
@@ -66,23 +73,52 @@ function playRound(computerChoice, playerChoice) {
       break;
   }
 
-  return result;
+  renderGameResult(result);
 }
 
-function playGame() {
-  for (let i = 1; i <= 5; i++) {
-    const computerChoice = getComputerChoice();
-    const playerChoice = getPlayerChoice();
-    console.log(`Round ${i}`);
-    console.log(`Your move: ${playerChoice}`);
-    console.log(`Computer move: ${computerChoice}`);
-    console.log(playRound(computerChoice, playerChoice));
+function playGame(computerChoice, playerChoice) {
+  renderMove(playerChoice, 'player');
+  renderMove(computerChoice, 'computer');
+
+  playRound(computerChoice, playerChoice);
+}
+
+// playGame();
+
+btns.addEventListener('click', (e) => {
+  if (!e.target.dataset?.id) return;
+
+  const playerChoice = e.target.dataset.id;
+
+  playGame(getComputerChoice(), playerChoice);
+
+  playCount++;
+
+  if (playCount == 5) renderFinalScore(computerScore, playerScore, ties);
+});
+
+function renderMove(move, gamePlayer) {
+  const statsMessageEl = document.createElement('div');
+
+  if (gamePlayer == 'player') {
+    statsMessageEl.textContent = `Your move: ${move}`;
+  } else {
+    statsMessageEl.textContent = `Computer move: ${move}`;
   }
 
-  console.log('You played five times');
-  console.log(
-    `Scoreboard: you - ${playerScore}, computer - ${computerScore}, ties - ${ties}`
-  );
+  statsContainer.appendChild(statsMessageEl);
 }
 
-playGame();
+function renderGameResult(result) {
+  const resultEl = document.createElement('div');
+  resultEl.textContent = result;
+
+  statsContainer.appendChild(resultEl);
+}
+
+function renderFinalScore(computerScore, playerScore, ties) {
+  const finalScoreEl = document.createElement('div');
+  finalScoreEl.textContent = `Computer score: ${computerScore}, Player score: ${playerScore}, Ties: ${ties}`;
+
+  statsContainer.appendChild(finalScoreEl);
+}
